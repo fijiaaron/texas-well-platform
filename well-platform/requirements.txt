@@ -1,0 +1,6 @@
+pydantic>=2.0,<3.0
+sqlalchemy>=2.0,<3.0
+geoalchemy2>=0.15
+shapely>=2.0
+psycopg[binary]>=3.1
+requests>=2.31
