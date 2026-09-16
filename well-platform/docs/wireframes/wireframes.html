@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>texas-well-platform — UI wireframes</title>
+<style>
+  :root {
+    --gray-900: #1a1d21;
+    --gray-800: #2a2e33;
+    --gray-700: #3a3f45;
+    --gray-500: #6b7280;
+    --gray-300: #b8bec5;
+    --gray-200: #d8dce0;
+    --gray-100: #eef0f2;
+    --gray-50:  #f7f8f9;
+    --white: #ffffff;
+    --ink: #24272b;
+    --line: #9aa1a8;
+    --accent: #4a6fa5;
+    --ok: #4f8a5b;
+    --warn: #c8942f;
+    --crit: #b64d3e;
+    --offline: #8a8f96;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--gray-50);
+    color: var(--ink);
+  }
+  header.page-head {
+    padding: 18px 24px 10px;
+    border-bottom: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+  header.page-head h1 { font-size: 18px; margin: 0 0 4px; }
+  header.page-head p { margin: 0; color: var(--gray-500); font-size: 13px; max-width: 760px; }
+
+  nav.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 10px 24px;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  nav.tabs button {
+    font-size: 12.5px;
+    padding: 7px 12px;
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    color: var(--gray-500);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  nav.tabs button.active {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+
+  main { padding: 22px 24px 60px; max-width: 1180px; margin: 0 auto; }
+  .screen { display: none; }
+  .screen.active { display: block; }
+  .screen-meta {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent);
+    padding-left: 10px;
+  }
+  .screen-meta b { color: var(--ink); }
+
+  /* --- generic wireframe primitives --- */
+  .frame {
+    border: 1px solid var(--line);
+    background: var(--white);
+    border-radius: 4px;
+  }
+  .box {
+    border: 1px dashed var(--gray-300);
+    background: var(--gray-50);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-500);
+    font-size: 11px;
+    text-align: center;
+    padding: 6px;
+  }
+  .label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+    display: block;
+  }
+  .row { display: flex; gap: 10px; }
+  .col { display: flex; flex-direction: column; gap: 10px; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10.5px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-weight: 600;
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 50%; }
+  .pill.ok { background: #eaf3ec; color: var(--ok); border-color: #cfe4d3; }
+  .pill.ok .dot { background: var(--ok); }
+  .pill.warn { background: #fbf2e2; color: var(--warn); border-color: #f0ddb5; }
+  .pill.warn .dot { background: var(--warn); }
+  .pill.crit { background: #fbeae7; color: var(--crit); border-color: #f0c9c1; }
+  .pill.crit .dot { background: var(--crit); }
+  .pill.offline { background: #eceded; color: var(--offline); border-color: #d6d8da; }
+  .pill.offline .dot { background: var(--offline); }
+  .pill.neutral { background: var(--gray-100); color: var(--gray-500); border-color: var(--gray-200); }
+
+  button.wf {
+    font-size: 11.5px;
+    padding: 7px 12px;
+    border-radius: 5px;
+    border: 1px solid var(--gray-300);
+    background: var(--white);
+    color: var(--ink);
+    cursor: default;
+  }
+  button.wf.primary { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+  input.wf {
+    font-size: 12px;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--gray-300);
+    color: var(--gray-500);
+    background: var(--white);
+  }
+
+  .anno {
+    font-size: 10.5px;
+    color: var(--accent);
+    background: #eef2f8;
+    border: 1px solid #d7e1ef;
+    border-radius: 4px;
+    padding: 3px 7px;
+    display: inline-block;
+    margin-top: 4px;
+  }
+
+  /* dark control-room variant for Monitor screens */
+  .dark {
+    background: var(--gray-900);
+    color: var(--gray-200);
+    border-radius: 6px;
+    padding: 14px;
+  }
+  .dark .box { background: var(--gray-800); border-color: var(--gray-700); color: var(--gray-300); }
+  .dark .label { color: var(--gray-500); }
+  .dark input.wf, .dark button.wf { background: var(--gray-800); border-color: var(--gray-700); color: var(--gray-200); }
+  .dark button.wf.primary { background: var(--accent); border-color: var(--accent); color: var(--white); }
+
+  /* --- Screen 1 / 3: browse layout --- */
+  .browse-shell { height: 560px; }
+  .browse-top { height: 44px; margin-bottom: 10px; }
+  .browse-body { height: 496px; }
+  .filter-col { width: 210px; flex-shrink: 0; }
+  .filter-col .box { height: 30px; margin-bottom: 6px; justify-content: flex-start; padding-left: 8px; }
+  .map-col { flex: 1.6; }
+  .list-col { flex: 1; }
+  .list-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 10px; border-bottom: 1px solid var(--gray-100); font-size: 11px;
+  }
+  .list-row .wid { color: var(--gray-500); font-family: monospace; }
+
+  /* --- Screen 4: dashboard --- */
+  .dash-grid { display: grid; grid-template-columns: 230px 1fr 260px; gap: 12px; height: 560px; }
+  .alert-item {
+    padding: 8px; border-radius: 5px; margin-bottom: 6px; font-size: 11px;
+    background: var(--gray-800); border: 1px solid var(--gray-700);
+  }
+  .alert-item.crit { border-color: #6b3a32; background: #3a2420; }
+  .status-count-row { display: flex; justify-content: space-between; padding: 6px 4px; font-size: 11px; border-bottom: 1px solid var(--gray-700); }
+
+  /* --- Screen 5: metric cards --- */
+  .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .metric-card { padding: 10px; }
+  .metric-card .val { font-size: 20px; font-weight: 700; margin: 4px 0 2px; }
+  .metric-card .bar { height: 6px; border-radius: 3px; background: var(--gray-700); margin: 6px 0 4px; overflow: hidden; }
+  .metric-card .bar-fill { height: 100%; }
+  .spark { height: 26px; display:flex; align-items:flex-end; gap:2px; }
+  .spark i { width: 3px; background: var(--accent); display: inline-block; opacity: .8; }
+
+  /* --- Screen 6: mobile --- */
+  .phone { width: 320px; border: 8px solid var(--gray-800); border-radius: 26px; overflow: hidden; background: var(--white); }
+  .phone .screen-inner { padding: 14px; }
+  .phone .status-bar { height: 18px; background: var(--gray-900); }
+  .well-card { border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px; margin-bottom: 10px; }
+  .well-card .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .field-row { margin-bottom: 10px; }
+  .field-row .box { height: 34px; justify-content: flex-start; padding-left: 8px; }
+
+  footer.note {
+    max-width: 1180px; margin: 30px auto 0; padding: 0 24px 30px;
+    font-size: 11px; color: var(--gray-500);
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head">
+  <h1>texas-well-platform — UI wireframes</h1>
+  <p>Low-fidelity, layout-only mockups for the six core screens in
+     <code>docs/UI_DESIGN.md</code>. No visual design pass, no real data —
+     these communicate structure and information hierarchy, not final
+     styling. Click a tab to switch screens.</p>
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<main id="screens"></main>
+
+<footer class="note">
+  Companion doc: <code>docs/UI_DESIGN.md</code> (component inventory,
+  interaction flows). Prototype reference: <code>well-monitor/</code>
+  (hackathon demo — inspiration for the sensor-panel treatment in Screen 5,
+  not a spec).
+</footer>
+
+<script>
+const screens = [
+  {
+    id: "browse", title: "1. Browse / Search",
+    meta: "Analyst · full RRC inventory · map + filterable list, split view",
+    render: () => `
+      <div class="row browse-shell">
+        <div class="col" style="width:100%">
+          <div class="frame row browse-top" style="align-items:center; padding:0 10px; gap:10px;">
+            <div class="box" style="width:90px;height:28px;">MODE: BROWSE</div>
+            <input class="wf" style="flex:1" placeholder="Search API #, well #, lease name…">
+            <div class="box" style="width:70px;height:28px;">Account</div>
+          </div>
+          <div class="row browse-body">
+            <div class="frame filter-col" style="padding:10px;">
+              <span class="label">Filters</span>
+              <div class="box">County ▾</div>
+              <div class="box">District ▾</div>
+              <div class="box">Operator (text)</div>
+              <div class="box">Regulatory status ▾ (multi)</div>
+              <div class="box">☐ Orphaned only</div>
+              <div class="box">☐ Monitored only</div>
+              <button class="wf primary" style="width:100%;margin-top:8px;">Apply</button>
+            </div>
+            <div class="frame map-col box" style="flex-direction:column; gap:8px;">
+              MAP CANVAS (MapLibre)
+              <span class="anno">county zoom → clustered counts, not individual pins</span>
+              <div class="row" style="gap:6px;">
+                <span class="pill ok"><i class="dot"></i>active</span>
+                <span class="pill neutral"><i class="dot"></i>plugged</span>
+                <span class="pill crit"><i class="dot"></i>orphaned</span>
+              </div>
+            </div>
+            <div class="frame list-col" style="overflow:hidden;">
+              <div class="label" style="padding:8px 10px 0;">7,305 wells in Tarrant County</div>
+              ${["43934308","43933797","42130441 ✳","43932095","43932661"].map((id,i)=>`
+                <div class="list-row">
+                  <span class="wid">${id}</span>
+                  <span class="pill ${["ok","ok","neutral","warn","crit"][i]}"><i class="dot"></i>${["gas well","gas well","plugged","shut-in","orphaned"][i]}</span>
+                </div>`).join("")}
+              <div class="box" style="height:28px;margin:8px;">Load more ▾</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="anno">✳ synthetic identity (spatial-cluster resolved) — see IdentityProvenanceBadge, Screen 2</p>
+    `
+  },
+  {
+    id: "well-detail-reg", title: "2. Well Detail — Regulatory",
+    meta: "Analyst · slide-in panel over Screen 1/3, doesn't hide map/list context",
+    render: () => `
+      <div class="row" style="gap:20px;">
+        <div class="frame box" style="width:60%; height:420px;">BROWSE SCREEN (dimmed, behind panel)</div>
+        <div class="frame" style="width:40%; padding:14px;">
+          <div class="row" style="justify-content:space-between; align-items:flex-start;">
+            <div>
+              <span class="label">API Number</span>
+              <div style="font-family:monospace; font-size:15px;">43934308</div>
+            </div>
+            <span class="pill ok"><i class="dot"></i>Gas Well</span>
+          </div>
+          <div class="anno" style="margin:8px 0;">identity_method: reliable_api · source_feature_count: 1</div>
+
+          <span class="label" style="margin-top:10px;">Location</span>
+          <div class="box" style="height:90px; margin-bottom:8px;">map thumbnail + lat/lon · Tarrant County · District —</div>
+
+          <span class="label">Regulatory history</span>
+          <div class="box" style="height:60px; margin-bottom:8px; justify-content:flex-start; padding:8px; text-align:left;">
+            RRC raw status: "Gas Well" · reliability code: 40 · source: operator-reported distances/plat
+          </div>
+
+          <span class="label">Well not yet monitored</span>
+          <button class="wf primary" style="width:100%;">Enroll for Monitoring →</button>
+          <button class="wf" style="width:100%;margin-top:6px;">View in RRC GIS Viewer ↗</button>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "candidates", title: "3. Candidate Site Selection",
+    meta: "Analyst · highest-value screen for POC-03 · bulk-select + enroll workflow",
+    render: () => `
+      <div class="row browse-shell">
+        <div class="col" style="width:100%">
+          <div class="frame row browse-top" style="align-items:center; padding:0 10px; gap:10px;">
+            <div class="box" style="width:170px;height:28px;">Monitoring Candidates</div>
+            <div class="box" style="width:140px;height:28px;">County: Real ▾</div>
+            <div style="flex:1"></div>
+            <div class="box" style="width:110px;height:28px;">146 candidates</div>
+          </div>
+          <div class="row browse-body">
+            <div class="frame map-col box" style="flex-direction:column; gap:8px;">
+              MAP — candidate wells outlined/pulsing (visually distinct from Screen 1)
+            </div>
+            <div class="frame list-col" style="overflow:hidden; display:flex; flex-direction:column;">
+              <div style="flex:1; overflow:auto;">
+                ${["137#494650","137#494922","13730124","13730173","13730224"].map((id)=>`
+                  <div class="list-row">
+                    <span style="display:flex; align-items:center; gap:8px;">
+                      <span class="box" style="width:14px;height:14px;padding:0;">☑</span>
+                      <span class="wid">${id}</span>
+                    </span>
+                    <span class="pill crit"><i class="dot"></i>plugged</span>
+                  </div>`).join("")}
+              </div>
+              <div class="row" style="padding:8px; border-top:1px solid var(--gray-100); align-items:center; justify-content:space-between;">
+                <span class="label" style="margin:0;">3 selected</span>
+                <span class="row" style="gap:6px;">
+                  <button class="wf">Export CSV</button>
+                  <button class="wf primary">Enroll Selected →</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "dashboard", title: "4. Sigil Watch Dashboard",
+    meta: "Operator · instrumented wells only · dark theme · alarm colors reserved for alarms (ISA-101)",
+    render: () => `
+      <div class="dark">
+        <div class="row" style="justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span class="box" style="width:170px;height:26px;">MODE: MONITOR (Sigil Watch)</span>
+          <span class="pill crit" style="font-size:11px;"><i class="dot"></i>⚠ 2 wells reporting critical levels — View</span>
+        </div>
+        <div class="dash-grid">
+          <div class="box" style="flex-direction:column; align-items:stretch; padding:10px;">
+            <span class="label">Monitored wells by status</span>
+            <div class="status-count-row"><span class="pill ok"><i class="dot"></i>active</span><span>34</span></div>
+            <div class="status-count-row"><span class="pill warn"><i class="dot"></i>idle</span><span>6</span></div>
+            <div class="status-count-row"><span class="pill warn"><i class="dot"></i>inspection</span><span>2</span></div>
+            <div class="status-count-row"><span class="pill crit"><i class="dot"></i>leaking</span><span>2</span></div>
+            <div class="status-count-row"><span class="pill offline"><i class="dot"></i>offline</span><span>1</span></div>
+          </div>
+          <div class="box" style="flex-direction:column;">
+            MAP — instrumented wells only, colored by <b>operational</b> status
+            <span class="anno">small bounded set — no clustering needed here</span>
+          </div>
+          <div class="box" style="flex-direction:column; align-items:stretch; padding:10px;">
+            <span class="label">Active Alerts</span>
+            <div class="alert-item crit">API 43930962 · CH4 550ppm (crit ≥400) · 4m ago</div>
+            <div class="alert-item crit">API 43931994 · H2S 24ppm (crit ≥20) · 22m ago</div>
+            <div class="alert-item">API 43930366 · inspection in progress</div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    id: "well-detail-mon", title: "5. Well Detail — Monitoring",
+    meta: "Operator · metric cards + sparklines + alert history · richer sibling of Screen 2",
+    render: () => `
+      <div class="dark" style="padding:16px;">
+        <div class="row" style="justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+          <div>
+            <span class="label">API 43930962 · Well #B3HF</span>
+            <div style="font-size:16px;">Mesa Verde 1</div>
+          </div>
+          <span class="pill crit" style="font-size:12px;"><i class="dot"></i>LEAKING</span>
+        </div>
+
+        <div class="metric-grid">
+          ${[
+            ["CH4","550","ppm",92,"crit"],
+            ["H2S","3.1","ppm",31,"warn"],
+            ["VOC","41","ppm",41,"ok"],
+          ].map(([code,val,unit,pct,level])=>`
+            <div class="frame metric-card" style="background:var(--gray-800); border-color:var(--gray-700); color:var(--gray-200);">
+              <span class="label">${code}</span>
+              <div class="val">${val}<span style="font-size:11px;color:var(--gray-500);"> ${unit}</span></div>
+              <div class="bar"><div class="bar-fill" style="width:${pct}%; background:var(--${level});"></div></div>
+              <div class="spark">${Array.from({length:16}).map((_,i)=>`<i style="height:${6+((i*37)%20)}px;"></i>`).join("")}</div>
+            </div>`).join("")}
+        </div>
+
+        <span class="label" style="margin-top:14px; display:block;">Alert history</span>
+        <div class="box" style="height:70px; justify-content:flex-start; align-items:flex-start; flex-direction:column; padding:8px; gap:4px;">
+          <div>09:14 — CH4 crossed critical (550 ≥ 400) — unacknowledged</div>
+          <div style="color:var(--gray-500);">yesterday 18:02 — warning cleared automatically on next reading</div>
+        </div>
+
+        <div class="row" style="margin-top:12px; gap:8px;">
+          <button class="wf primary">Acknowledge</button>
+          <button class="wf">Log Field Visit</button>
+          <button class="wf">Mark Offline</button>
+        </div>
+        <p class="anno">Acknowledge is a human action (WellService.update_operational_status) — SensorReadingService never auto-clears LEAKING.</p>
+      </div>
+    `
+  },
+  {
+    id: "mobile", title: "6. Field Crew (mobile)",
+    meta: "Field crew · nearby-wells radius query + inspection form · offline-tolerant",
+    render: () => `
+      <div class="row" style="gap:30px; align-items:flex-start;">
+        <div class="phone">
+          <div class="status-bar"></div>
+          <div class="screen-inner">
+            <div class="label">Nearby Wells · within 2mi</div>
+            ${[
+              ["137#494650","0.4 mi","candidate"],
+              ["13730124","0.9 mi","candidate"],
+              ["43930962","1.6 mi","assigned — leaking"],
+            ].map(([id,dist,tag])=>`
+              <div class="well-card">
+                <div class="top-row">
+                  <span class="wid" style="font-family:monospace;font-size:11px;">${id}</span>
+                  <span class="pill ${tag.includes('leaking')?'crit':'neutral'}"><i class="dot"></i>${tag}</span>
+                </div>
+                <div class="row" style="justify-content:space-between; align-items:center;">
+                  <span style="font-size:11px;color:var(--gray-500);">${dist} away</span>
+                  <button class="wf" style="padding:5px 10px;">Navigate</button>
+                </div>
+              </div>`).join("")}
+          </div>
+        </div>
+        <div class="phone">
+          <div class="status-bar"></div>
+          <div class="screen-inner">
+            <div class="label">Inspection — API 137#494650</div>
+            <div class="field-row"><span class="label">Visual leak check</span><div class="box">○ Yes &nbsp; ○ No</div></div>
+            <div class="field-row"><span class="label">Sigil Node installed</span><div class="box">○ Yes &nbsp; ○ No</div></div>
+            <div class="field-row"><span class="label">Photo</span><div class="box" style="height:60px;">📷 Attach photo</div></div>
+            <div class="field-row"><span class="label">Notes</span><div class="box" style="height:50px;">free text…</div></div>
+            <button class="wf primary" style="width:100%;">Submit</button>
+            <p class="anno">Tagged DataSourceType.FIELD_CREW — same write path as sensor ingestion, not a separate store</p>
+          </div>
+        </div>
+      </div>
+    `
+  },
+];
+
+const tabsEl = document.getElementById("tabs");
+const screensEl = document.getElementById("screens");
+
+screens.forEach((s, i) => {
+  const btn = document.createElement("button");
+  btn.textContent = s.title;
+  btn.className = i === 0 ? "active" : "";
+  btn.onclick = () => selectScreen(i);
+  tabsEl.appendChild(btn);
+
+  const div = document.createElement("div");
+  div.className = "screen" + (i === 0 ? " active" : "");
+  div.id = "screen-" + s.id;
+  div.innerHTML = `<div class="screen-meta"><b>${s.title}</b> — ${s.meta}</div>` + s.render();
+  screensEl.appendChild(div);
+});
+
+function selectScreen(i) {
+  [...tabsEl.children].forEach((b, j) => b.classList.toggle("active", j === i));
+  [...screensEl.children].forEach((d, j) => d.classList.toggle("active", j === i));
+}
+
+// Deep-link support: #screen=<id> selects a screen on load, e.g.
+// wireframes.html#screen=dashboard — makes it possible to link directly
+// to one screen instead of always landing on Screen 1.
+const requestedId = new URLSearchParams(location.hash.slice(1)).get("screen");
+if (requestedId) {
+  const idx = screens.findIndex(s => s.id === requestedId);
+  if (idx >= 0) selectScreen(idx);
+}
+</script>
+</body>
+</html>

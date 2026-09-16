@@ -7,6 +7,10 @@ shaped a decision in [`ARCHITECTURE.md`](ARCHITECTURE.md) (bbox search,
 `monitored_only`/`orphaned_only` filters, `WellSearchQuery`'s shape, the
 `DataSourceType.FIELD_CREW` provenance value, etc.).
 
+For concrete screens, components, interaction flows, and wireframes built
+on top of this planning, see [`UI_DESIGN.md`](UI_DESIGN.md) and
+[`wireframes/wireframes.html`](wireframes/wireframes.html).
+
 ## Two different UIs, not one
 
 The domain model's split between "the full RRC inventory" and "wells we
