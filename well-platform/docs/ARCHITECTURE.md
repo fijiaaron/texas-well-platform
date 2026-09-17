@@ -19,8 +19,7 @@ Postgres 17 + PostGIS 3.6 instance, the live RRC service, a full
 county-scale ingestion-then-curation pass (Real County, TX — 182 raw RRC
 rows landed, 181 canonical wells resolved, re-run twice to confirm
 idempotency), and every repository/service method were exercised
-end-to-end during development. This isn't a theoretical design doc.
-
+end-to-end during development. 
 ## Layers
 
 ```
