@@ -1,15 +1,15 @@
 # well-platform — Architecture
 
-Backend for Sigilint's Texas well data: the full RRC regulatory well
-inventory, plus the (much smaller) subset of wells Sigilint has actually
-instrumented with a Sigil Node and is pulling sensor readings from. See
+Backend for Sigilint's Texas well data:
+
+The full RRC regulatory well inventory, plus the (much smaller) subset of wells Sigilint has actually instrumented with a Sigil Node and is pulling sensor readings from. See
 `content/overview.md` (POC-03) for the product context this serves —
 identifying and monitoring abandoned/orphaned wells for methane/H2S/VOC
 leaks, for safety and mineral-lessor liability reasons.
 
 This doc covers the domain/data/service layers and the choices behind them.
 For where the source data comes from and how it was found, see
-[`../texas-rrc-wells/README.md`](../texas-rrc-wells/README.md) — that
+[`texas-rrc-wells/README.md`](../../texas-rrc-wells/README.md) — that
 research is the foundation `services/ingestion_service.py` is built on. For
 how this backend should shape (without yet building) a UI, see
 [`UI_PLANNING.md`](UI_PLANNING.md).
