@@ -48,7 +48,7 @@ domain/             <- framework-agnostic models; no SQLAlchemy import here
   enums.py                RegulatoryStatus, OperationalStatus, DataSourceType, ...
   status_mapping.py       RRC raw status -> RegulatoryStatus, enrollment defaults
   dedup.py                well-identity resolution — the dedup rule itself,
-                           shared verbatim with ../texas-rrc-wells/dedup_analysis.py
+                           shared verbatim with ../../texas-rrc-wells/dedup_analysis.py
 ```
 
 A caller never skips a layer: services depend on repositories, repositories
@@ -64,7 +64,7 @@ data actually needs:
 
 - **The data is inherently geospatial and needs to stay fast at scale.**
   RRC's own inventory is 1.4M+ wells statewide (see the status-count query
-  in `../texas-rrc-wells/README.md`). "Every well in this county" or "every
+  in `../../texas-rrc-wells/README.md`). "Every well in this county" or "every
   well in this map viewport" has to hit a spatial index, not a full scan.
   PostGIS's GiST indexes and `ST_Within`/`ST_Intersects`/`ST_DWithin` are
   mature, standard, and exactly this problem. MongoDB has `2dsphere`
@@ -147,7 +147,7 @@ natural shape for a future TimescaleDB hypertable, and is what
 rather than `county_id`/`operator_id` foreign keys into separate tables.
 This is a deliberate tradeoff, not an oversight: RRC is the source of
 truth for both (there's no "add a county" workflow of our own — see RRC's
-own Counties layer in `../texas-rrc-wells/README.md` §2), the values are
+own Counties layer in `../../texas-rrc-wells/README.md` §2), the values are
 attached per-well at ingestion time with no independent lifecycle, and a
 join for every well read (which will be the majority of all reads) to
 fetch a name that never changes trades real query cost for a normalization
@@ -268,7 +268,7 @@ The resulting rule (`resolve_well_identities`):
   debugging detail.
 
 This exact function is shared, unmodified, between the database curation
-path and `../texas-rrc-wells/dedup_analysis.py` — a standalone script that
+path and `../../texas-rrc-wells/dedup_analysis.py` — a standalone script that
 fetches a county's raw rows to CSV and runs the same dedup logic outside
 the database, for anyone who wants to inspect or validate the rule without
 standing up Postgres. Both paths will always agree, by construction.
@@ -324,7 +324,7 @@ real sites, not just a wrong number in a report.
 ## Service layer notes
 
 - `RawIngestionService` owns talking to RRC (`RRCWellClient`, same
-  endpoints/pagination approach as `../texas-rrc-wells/bulk_county.py` and
+  endpoints/pagination approach as `../../texas-rrc-wells/bulk_county.py` and
   `single_well.py`, refactored into a reusable client) and landing raw rows
   — see "Raw-then-curate ingestion" above for why it stops there rather
   than writing to `wells` directly. It records an `IngestionRun` per pass
@@ -386,7 +386,7 @@ Requires the `postgis` extension available on the target Postgres server
   needs incremental migrations, rather than speculatively now.
 - **No operator/lease-name enrichment from RRC's "Statewide API Data" bulk
   file.** The live ArcGIS layer used for ingestion doesn't carry
-  operator/lease name (see `../texas-rrc-wells/README.md` §1's API-field
+  operator/lease name (see `../../texas-rrc-wells/README.md` §1's API-field
   caveat and §3); wiring up that secondary bulk-file join is future work,
   not required for location/status ingestion or for the monitoring-program
   use cases this was built for.
