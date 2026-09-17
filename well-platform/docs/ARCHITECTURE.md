@@ -14,7 +14,7 @@ research is the foundation `services/ingestion_service.py` is built on. For
 how this backend should shape (without yet building) a UI, see
 [`UI_PLANNING.md`](UI_PLANNING.md).
 
-Everything described here has been run for real, not just written: a local
+Everything described here has been run on a local
 Postgres 17 + PostGIS 3.6 instance, the live RRC service, a full
 county-scale ingestion-then-curation pass (Real County, TX — 182 raw RRC
 rows landed, 181 canonical wells resolved, re-run twice to confirm
